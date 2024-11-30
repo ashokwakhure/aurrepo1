@@ -1,0 +1,29 @@
+SELECT
+                    CASE WHEN md.ixprcs IS NULL THEN 278 ELSE md.ixprcs END as ixprcs,
+                    md.dxprcs,
+                    md.ixstmt,
+                    md.dxstmt,
+                    md.ixprdt,
+                    md.dxctd,
+                    md.bxctd,
+                    md.stxstxdt,
+                    md.stxenxdt,
+                    mc.gcif,
+                    mc.account_no,
+                    COUNT(md.gcif) trxn_count
+               FROM DXI_GNR_ESTAT_CASA_TRXN md
+         RIGHT JOIN MVW_GNR_ESTAT_CASA_ACCOUNT_MASTER_GCIF mc
+                 ON md.GCIF = mc.GCIF
+                AND md.ACCOUNT_NO = mc.ACCOUNT_NO
+                AND md.IXPRCS = 278 AND mc.GCIF = 'G310144951'  
+             GROUP BY md.ixprcs,
+                    md.dxprcs,
+                    md.ixstmt,
+                    md.dxstmt,
+                    md.ixprdt,
+                    md.dxctd,
+                    md.bxctd,
+                    md.stxstxdt,
+                    md.stxenxdt,
+                    mc.gcif,
+                    mc.account_no ; 
